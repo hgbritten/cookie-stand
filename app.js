@@ -1,4 +1,5 @@
 
+'use strict'
 
 const timeSlots = [
     '6am',
@@ -17,44 +18,108 @@ const timeSlots = [
     '7pm',
 
 ];
-let seattle = {
-    location: 'Seattle',
-    hourlySales: hourlySales(23, 65, 6.5),
-    // sixAm: '6am: 16 cookies',
-    // sevenAm: '7am: 20 cookies',
-    // eightAm: '8am: 35 cookies',
-    // nineAm: '9am: 48 cookies',
-    // tenAm: '10am: 56 cookies',
-    // elevenAm: '11am: 77 cookies',
-    // twelveNoon: '12pm: 93 cookies',
-    // onePm: '1pm: 144 cookies',
-    // twoPm: '2pm: 119 cookies',
-    // threePm: '3pm: 84 cookies',
-    // fourPm: '4pm: 61 cookies',
-    // fivePm: '5pm: 23 cookies',
-    // sixPm: '6pm: 42 cookies',
-    // sevenPm: '7pm: 57 cookies',
-    // total: 'Total: 875 cookies',
-}
-const dubai = {
-    location: 'Dubai',
-    hourlySales: hourlySales(11, 38, 3.7),
+// function createTable() {
+const profileContainer = document.getElementById('cookieTable');
+
+// const article = createChild('article', cookieTable);
+
+// createChild('h2', article, this.locaiton);
+
+// createChild('p', article, this.sales);
+
+// const ul = createChild('tr', article);
+
+const table = createChild('table', profileContainer);
+
+const headerRow = createChild('tr', table);
+
+createChild('th', headerRow);
+
+for (let i = 0; i < timeSlots.length; i++) {
+    createChild('th', headerRow, timeSlots[i]);
 }
 
-const tokyo = {
-    location: 'Tokyo',
-    hourlySales: hourlySales(3, 24, 1.2),
+createChild('th', headerRow, 'Daily Total');
+
+
+// createChild('th', sideRow, 'Seattle');
+// createChild('td', th);
+// const tr = createChild('tr', table);
+// const th = createChild('th', tr);
+// const tbody = createChild('td', sideRow);
+
+// createChild('td', dataRow, this.location);
+// createChild('th', dataRow, this.sales);
+// }
+
+function CookieRow(location, min, max, avgcookies) {
+    this.location = location;
+    this.sales = sales(min, max, avgcookies);
+    // this.int = getRandomInt(23, 65, 6.3);
+
+    // const dataRow = createChild('tr', table);
 }
 
-const paris = {
-    location: 'Paris',
-    hourlySales: hourlySales(20, 38, 2.3),
+
+
+CookieRow.prototype.render = function () {
+    const profileContainer = document.getElementById('cookieTable');
+    const sideRow = createChild('tr', table);
+    createChild('td', sideRow, this.location);
+
+    for (let i = 0; i < this.sales.length; i++) {
+        createChild('td', sideRow, this.sales[i])
+    }
+
+    let total = 0;
+    for (let i = 0; i < this.sales.length; i++) {
+        const currentSales = this.sales[i];
+        total += currentSales;
+    }
+    let currentSales = total
+    createChild('td', sideRow, currentSales);
+}
+function createChild(tag, parent, text) {
+    const child = document.createElement(tag);
+    parent.appendChild(child);
+
+    if (text !== undefined) {
+        child.textContent = text;
+    }
+
+    return child;
+
 }
 
-const lima = {
-    location: 'Lima',
-    hourlySales: hourlySales(2, 16, 4.6),
-}
+// for (let i = 0; i < timeSlots.length; i += 1) {
+//     const currentSales = cookieStand.sales[i];
+//     const currentTimeSlot = timeSlots[i];
+//     hourItemElem.textContent = currentTimeSlot + ': ' + currentSales + ' cookies';
+//     let total = 0;
+//     for (let i = 0; i < cookieStand.sales.length; i += 1) {
+//         const currentSales = cookieStand.sales[i];
+//         total += currentSales;
+//     }
+// }
+
+let seattle = new CookieRow('Seattle', 23, 65, 6.3)
+
+let dubai = new CookieRow('Dubai', 11, 38, 3.7)
+
+let tokyo = new CookieRow('Tokyo', 3, 24, 1.2)
+// location: 'Tokyo',
+// sales: sales(3, 24, 1.2),
+
+
+let paris = new CookieRow('Paris', 20, 38, 2.3)
+//     location: 'Paris',
+//     sales: sales(20, 38, 2.3),
+// }
+
+let lima = new CookieRow('Lima', 2, 16, 4.6)
+// location: 'Lima',
+// sales: sales(2, 16, 4.6),
+
 
 function getRandomInt(min, max) {
     min = Math.ceil(min);
@@ -67,11 +132,12 @@ console.log(getRandomInt)
 // Create a function that creates a new array
 // And pushes random ints into every element of the array
 
-console.log(hourlySales(23, 65, 6.3));
 
-function hourlySales(min, max, avgcookies) {
+
+function sales(min, max, avgcookies) {
     let arraySales = [];
-    for (i = 0; i < timeSlots.length; i += 1) {
+
+    for (let i = 0; i < timeSlots.length; i += 1) {
         let value = getRandomInt(min, max)
         let cookieSales = Math.floor(value * avgcookies)
         arraySales.push(cookieSales);
@@ -90,59 +156,64 @@ const storeContainerElem = document.getElementById('store-container')
 
 const cityProfileElem = document.getElementById('cityProfiles');
 
-renderCookieStand(seattle);
-renderCookieStand(tokyo);
-renderCookieStand(dubai);
-renderCookieStand(paris);
-renderCookieStand(lima);
 
-function renderCookieStand(cookieStand) {
-
-    const sectionElem = document.createElement('section');
-    storeContainerElem.appendChild(sectionElem);
-
-    const locationElem = document.createElement('h2');
-    sectionElem.appendChild(locationElem);
-    locationElem.textContent = cookieStand.location;
-
-    const hourListElem = document.createElement('ul');
-    sectionElem.appendChild(hourListElem);
-
-    for (let i = 0; i < timeSlots.length; i += 1) {
-
-        // need a bunch of lis in the ul
-        // lets do one for now
-        const hourItemElem = document.createElement('li');
-        hourListElem.appendChild(hourItemElem);
-
-        const currentSales = cookieStand.hourlySales[i];
-        const currentTimeSlot = timeSlots[i];
-        hourItemElem.textContent = currentTimeSlot + ': ' + currentSales + ' cookies';
-    }
-
-    let total = 0;
+seattle.render();
+tokyo.render();
+dubai.render();
+paris.render();
+lima.render();
 
 
-    for (let i = 0; i < cookieStand.hourlySales.length; i += 1) {
-        const currentSales = cookieStand.hourlySales[i];
-        total += currentSales;
-    }
-    // the sum of all the sales for the current cookieStand
+// renderCookieStand(seattle);
+// renderCookieStand(tokyo);
+// renderCookieStand(dubai);
+// renderCookieStand(paris);
+// renderCookieStand(lima);
 
-    // need a bunch of lis in the ul
-    // lets do one for now
+// function renderCookieStand(cookieStand) {
 
-    const hourItemElem = document.createElement('li');
-    hourListElem.appendChild(hourItemElem);
+//     const sectionElem = document.createElement('section');
+//     storeContainerElem.appendChild(sectionElem);
 
-    hourItemElem.textContent = seattle.sixAm;
+//     const locationElem = document.createElement('h2');
+//     sectionElem.appendChild(locationElem);
+//     locationElem.textContent = cookieStand.location;
 
-    // need last total item
+//     const hourListElem = document.createElement('ul');
+//     sectionElem.appendChild(hourListElem);
 
-    const totalItemElem = document.createElement('li');
-    hourListElem.appendChild(totalItemElem);
-    totalItemElem.textContent = 'Total: ' + total + ' cookies';
+//     for (let i = 0; i < timeSlots.length; i += 1) {
+
+//         // need a bunch of lis in the ul
+//         // lets do one for now
+//         const hourItemElem = document.createElement('li');
+//         hourListElem.appendChild(hourItemElem);
+
+//         const currentSales = cookieStand.hourlySales[i];
+//         const currentTimeSlot = timeSlots[i];
+//         hourItemElem.textContent = currentTimeSlot + ': ' + currentSales + ' cookies';
+//     }
+
+//     
 
 
-}
 
+//     }
+//     // the sum of all the sales for the current cookieStand
+
+//     // need a bunch of lis in the ul
+//     // lets do one for now
+
+//     const hourItemElem = document.createElement('li');
+//     hourListElem.appendChild(hourItemElem);
+
+//     hourItemElem.textContent = seattle.sixAm;
+
+//     // need last total item
+
+//     const totalItemElem = document.createElement('li');
+//     hourListElem.appendChild(totalItemElem);
+//     totalItemElem.textContent = 'Total: ' + total + ' cookies';
+
+
+// 

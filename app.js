@@ -63,15 +63,21 @@ function CookieRow(location, min, max, avgcookies) {
 
 
 CookieRow.prototype.render = function () {
+    const profileContainer = document.getElementById('cookieTable');
     const sideRow = createChild('tr', table);
     createChild('td', sideRow, this.location);
 
-    // const tr = createChild('tr', sideRow)
     for (let i = 0; i < this.sales.length; i++) {
         createChild('td', sideRow, this.sales[i])
     }
 
-    createChild('td', sideRow, '900');
+    let total = 0;
+    for (let i = 0; i < this.sales.length; i++) {
+        const currentSales = this.sales[i];
+        total += currentSales;
+    }
+    let currentSales = total
+    createChild('td', sideRow, currentSales);
 }
 function createChild(tag, parent, text) {
     const child = document.createElement(tag);

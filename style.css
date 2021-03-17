@@ -17,6 +17,7 @@ background-color: rgb(3, 165, 116);
 padding: 10px;
 border-radius: 10px;
 border: 2px solid rgb(0, 136, 91);
+
 }
 
 table {
@@ -33,15 +34,36 @@ h2 {
     text-shadow: 0px 0px 6px #00ff22;
     background-color: #006d1b;
     font-size: 35px;
+    background-image: url("fish.png");
+    background-repeat: no-repeat;
+
 }
 
-p {
+h3 {
 padding: 20px;
     color: #ffffd6;
     text-shadow: 0px 0px 6px #00ff22;
     background-color: #006d1b;
     font-size: 35px;
     margin: 20px;
+}
+
+p {
+    padding: 10px;
+    color: #000000;
+    width: fit-content;
+    background-color: #77ff99;
+    font-size: 15px;
+    margin: 10px;
+}
+
+h4 {
+    padding: 10px;
+    color: #000000;
+    width: fit-content;
+    background-color: #92ffad;
+    font-size: 15px;
+    margin: 10px;
 }
 
 a {
@@ -52,3 +74,42 @@ a {
         font-size: 25px;
         margin: 20px;
     }
+
+#locations {
+    display: flex;
+
+}
+#locations p {
+    width: fit-content;
+    align-items: center;
+    margin-left: 3rem;
+
+}
+
+
+#Seattle {
+    /* width: fit-content; */
+    background-image: url(shirt.jpg);
+}
+
+#Tokyo {
+    background-image: url(frosted-cookie.jpg);
+}
+
+#Dubai {
+    background-image: url(cutter.jpeg);
+}
+#Paris {
+    background-image: url(fish.jpg);
+    background-size: cover;
+}
+#Lima {
+    background-image: url(chinook.jpg);
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+footer {
+    margin-top: 5rem;
+background-size: cover;
+}

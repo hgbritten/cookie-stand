@@ -18,25 +18,28 @@ const timeSlots = [
     '7pm',
 
 ];
-
 const profileContainer = document.getElementById('cookieTable');
-
 const table = createChild('table', profileContainer);
 
-const headerRow = createChild('tr', table);
+function renderheader(profileContainer) {
 
-createChild('th', headerRow);
+    const headerRow = createChild('tr', table);
 
-for (let i = 0; i < timeSlots.length; i++) {
-    createChild('th', headerRow, timeSlots[i]);
+    createChild('th', headerRow);
+
+    for (let i = 0; i < timeSlots.length; i++) {
+        createChild('th', headerRow, timeSlots[i]);
+    }
+
+    createChild('th', headerRow, 'Daily Total');
 }
-
-createChild('th', headerRow, 'Daily Total');
-
 
 function CookieRow(location, min, max, avgcookies) {
     this.location = location;
     this.sales = sales(min, max, avgcookies);
+    // this.minCustomers = minCustomers
+    // this.maxCustomers = maxCustomers
+    // this.avgCookies = avgCookies
     console.log(this.sales);
     // this.int = getRandomInt(23, 65, 6.3);
     CookieRow.stores.push(this);
@@ -46,7 +49,7 @@ function CookieRow(location, min, max, avgcookies) {
 CookieRow.stores = [];
 
 CookieRow.prototype.render = function () {
-    const profileContainer = document.getElementById('cookieTable');
+    // const profileContainer = document.getElementsByTagName('table');
     const sideRow = createChild('tr', table);
     createChild('td', sideRow, this.location);
 
@@ -103,6 +106,8 @@ let paris = new CookieRow('Paris', 20, 38, 2.3)
 
 let lima = new CookieRow('Lima', 2, 16, 4.6)
 
+// let newStore = new CookieRow(locationName, minCustomers, maxCustomers, averageCookies)
+
 function getRandomInt(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
@@ -130,11 +135,48 @@ const storeContainerElem = document.getElementById('store-container')
 const cityProfileElem = document.getElementById('cityProfiles');
 
 
+
+
+
+
+const newLocation = document.getElementById("add-location");
+
+// kittenForm.onEvent('formSubmit');
+
+function addLocationHandler(event) {
+    event.preventDefault();
+    const locationName = event.target.locationName.value;
+    const minCustomers = parseInt(event.target.minCustomers.value);
+    const maxCustomers = parseInt(event.target.maxCustomers.value);
+    const avgCookies = parseFloat(event.target.cookieAverage.value);
+    new CookieRow(locationName, minCustomers, maxCustomers, avgCookies);
+
+    // const table = document.getElementById('cookieTable');
+    table.innerHTML = '';
+    renderheader();
+    for (let i = 0; i < CookieRow.stores.length; i++) {
+        CookieRow.stores[i].render();
+
+    }
+    function clearform() {
+        event.target.locationName.value = null;
+        event.target.minCustomers.value = null;
+        event.target.maxCustomers.value = null;
+        event.target.cookieAverage.value = null;
+    }
+    clearform();
+    // rendertable();
+    seattle.renderfooter();
+}
+// need to write a function that is going to render the table
+
+renderheader();
+
 seattle.render();
 tokyo.render();
 dubai.render();
 paris.render();
 lima.render();
-
+newLocation.addEventListener('submit', addLocationHandler);
 seattle.renderfooter();
 

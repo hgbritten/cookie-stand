@@ -1,4 +1,3 @@
-
 'use strict'
 
 const timeSlots = [
@@ -18,12 +17,15 @@ const timeSlots = [
     '7pm',
 
 ];
+
 const profileContainer = document.getElementById('cookieTable');
+
 const table = createChild('table', profileContainer);
 
+//When calling the function the inside of the () is called the arguments, when declaring the function the inside of the () is called the parameters
 function renderheader(profileContainer) {
 
-    const headerRow = createChild('tr', table);
+    const headerRow = createChild('tr', table); //declares a variable that is equal to the returned value of the createChild function with the arguements 'tr' and table
 
     createChild('th', headerRow);
 
@@ -34,6 +36,7 @@ function renderheader(profileContainer) {
     createChild('th', headerRow, 'Daily Total');
 }
 
+// this.location (seattles location) 
 function CookieRow(location, min, max, avgcookies) {
     this.location = location;
     this.sales = sales(min, max, avgcookies);
@@ -48,13 +51,13 @@ function CookieRow(location, min, max, avgcookies) {
 
 CookieRow.stores = [];
 
-CookieRow.prototype.render = function () {
-    // const profileContainer = document.getElementsByTagName('table');
-    const sideRow = createChild('tr', table);
-    createChild('td', sideRow, this.location);
+CookieRow.prototype.render = function () { //any CookieRow object can use this render function
+
+    const sideRow = createChild('tr', table); // the variable sideRow is = to the RETURN value of the function with the arguments 'tr' for tag and table for the parent and no text
+    createChild('td', sideRow, this.location); //creates the box to hold the location
 
     for (let i = 0; i < this.sales.length; i++) {
-        createChild('td', sideRow, this.sales[i])
+        createChild('td', sideRow, this.sales[i]) //creates the box to hold the sales and runs the amount of the times there are sales
     }
 
     let total = 0;
@@ -62,7 +65,7 @@ CookieRow.prototype.render = function () {
         const currentSales = this.sales[i];
         total += currentSales;
     }
-    let currentSales = total
+    let currentSales = total;
     createChild('td', sideRow, currentSales);
 }
 
@@ -133,11 +136,6 @@ function sales(min, max, avgcookies) {
 const storeContainerElem = document.getElementById('store-container')
 
 const cityProfileElem = document.getElementById('cityProfiles');
-
-
-
-
-
 
 const newLocation = document.getElementById("add-location");
 
